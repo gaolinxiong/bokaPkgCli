@@ -31,7 +31,7 @@ const questions = [
     {
         type: 'input',
         name:'projectName',
-        message: chalk.yellow("输入你的项目名字：")
+        message: chalk.yellow("输入你的组件项目名字：")
     },
     {
         type:'list',
