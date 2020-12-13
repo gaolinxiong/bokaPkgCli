@@ -16,6 +16,8 @@ const { exec } = require("child_process")
 
 let projectName;
 let force;
+let description = '';
+let keywords = '';
 
 program.arguments('[projectName]') // 指定解析的参数
     .description("初始化项目")
@@ -40,6 +42,16 @@ const questions = [
         choices:[
             {name:"Vue模板",value:"vueProject"}
         ]
+    },
+    {
+        type: 'input',
+        name:'description',
+        message: chalk.yellow("输入你的组件描述：")
+    },
+    {
+        type: 'input',
+        name:'keywords',
+        message: chalk.yellow("输入你的组件关键词：(可多个，以英文逗号隔开)")
     }
 ];
 
@@ -53,10 +65,18 @@ inquirer.prompt(questions).then(result=>{
     if(result.projectName) {
         projectName = result.projectName;
     }
+    if (result.description) {
+        description = result.description;
+    }
+    if (result.keywords) {
+        keywords = result.keywords;
+    }
     const templateName = result.template;
     // 获取projectName templateName
     console.log("项目名称：" + projectName)
     console.log("模板名称：" + templateName)
+    console.log("组件描述：" + description)
+    console.log("组件关键词：" + keywords)
     if(!templateName || !projectName){
         // 退出
         logger.exit();
@@ -123,6 +143,8 @@ function replaceFileContent(projectName,templateName){
         const pkg = require(pkgPath);
         // 修改package.json的name属性为项目名称
         pkg.name = projectName;
+        pkg.description = description;
+        pkg.keywords = keywords.split(',');
         fs.writeFileSync(pkgPath,JSON.stringify(pkg,null,2));
 
         // const indexPath = path.join(currentPath, `${projectName}/index.html`);
@@ -150,9 +172,9 @@ function install(projectName){
     nodeJob.on("close",()=>{
         logger.info(`创建成功! ${projectName} 项目位于 ${path.join(currentPath,projectName)}`)
         logger.info('')
-        logger.info('你可以执行以下命令运行开发环境')
+        logger.info('你可以执行以下命令进入开发目录')
         logger.infoGreen(` cd ${projectName}       `);
-        logger.infoGreen(` npm run dev             `);
+        logger.infoGreen(`参照Readme.md进行组件开发`);
         exec(`rm -rf ${currentPath}/${projectName}/.git`);
     })
 }
