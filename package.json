@@ -1,0 +1,25 @@
+{
+  "name": "bokapkgcli",
+  "version": "1.0.0",
+  "description": "npm包开发脚手架",
+  "main": "index.js",
+  "bin": {
+    "bokapkgcli": "download.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaolinxiong/bokaPkgCli.git"
+  },
+  "keywords": [
+    "vue组件npm包开发脚手架"
+  ],
+  "author": "gaolinxiong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaolinxiong/bokaPkgCli/issues"
+  },
+  "homepage": "https://github.com/gaolinxiong/bokaPkgCli#readme"
+}
